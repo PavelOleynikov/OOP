@@ -1,4 +1,4 @@
-from src.models import Product, Category
+from src.models import Category, Product
 
 
 def test_init_product(product1: Product) -> None:

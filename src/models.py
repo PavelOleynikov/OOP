@@ -9,8 +9,36 @@ class Product:
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price  # приватный атрибут
         self.quantity = quantity
+
+    @classmethod
+    def new_product(
+        cls, product
+    ):  # возвращает экземпляр класса Product на основе данных словаря
+        return cls(
+            name=product["name"],
+            description=product["description"],
+            price=product["price"],
+            quantity=product["quantity"],
+        )
+
+    @property
+    def price(self) -> float:  # геттер возвращает значение приватного атрибута цены.
+
+        return self.__price
+
+    @price.setter
+    def price(
+        self, new_price
+    ) -> None:  # сеттер проверки на положительное значение новой цены
+
+        if 0 < new_price < self.__price:
+            answer = input("Снизить цену товара?")
+            if answer == "y":
+                self.__price = new_price
+        else:
+            print("Цена не должна быть нулевая или отрицательная")
 
 
 class Category:
@@ -25,7 +53,22 @@ class Category:
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products  # приватный атрибут
 
         Category.category_count += 1
         Category.product_count += len(products)
+
+    def add_product(self, product):
+        """добавляем продукт в список приватных продуктов"""
+        self.__products.append(product)
+
+        Category.product_count += 1
+
+    @property
+    def products(
+        self,
+    ) -> str:  # геттер для вывода приватного списка продуктов по заданному формату
+        products_str = ""
+        for product in self.__products:
+            products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+        return products_str

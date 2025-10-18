@@ -33,12 +33,14 @@ class Product:
         self, new_price
     ) -> None:  # сеттер проверки на положительное значение новой цены
 
-        if 0 < new_price < self.__price:
-            answer = input("Снизить цену товара?")
-            if answer == "y":
-                self.__price = new_price
-        else:
+        if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
+            return
+        if new_price < self.__price:
+            answer_user = input("Снизить цену товара? ")
+            if answer_user.lower() != "y":
+                return
+        self.__price = new_price
 
 
 class Category:

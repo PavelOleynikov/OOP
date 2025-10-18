@@ -1,21 +1,4 @@
-import pytest
-from src.models import Product, Category
-
-
-@pytest.fixture
-def product1() -> Product:
-    return Product(
-        "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5
-    )
-
-
-@pytest.fixture
-def category1(product1: Product) -> Category:
-    return Category(
-        "Смартфоны",
-        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-        [product1],
-    )
+from src.models import Category, Product
 
 
 def test_init_product(product1: Product) -> None:
@@ -31,7 +14,8 @@ def test_init_category(category1: Category, product1: Product) -> None:
         category1.description
         == "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни"
     )
-    assert category1.products == [product1]
+    expected_string = "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+    assert category1.products == expected_string
 
 
 def test_product_count() -> None:
@@ -40,3 +24,22 @@ def test_product_count() -> None:
 
 def test_category_count() -> None:
     assert Category.category_count == 1
+
+
+def test_new_product_property(new_product):
+    assert new_product["name"] == "Samsung Galaxy S23 Ultra"
+    assert new_product["description"] == "256GB, Серый цвет, 200MP камера"
+    assert new_product["price"] == 180000.0
+    assert new_product["quantity"] == 5
+
+
+def test_new_product_setter():
+    new_price = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+    assert new_price.price == 123000.0
+
+
+def test_products_property(product1, category1):
+    result = category1.products
+    expected = "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+
+    assert result == expected

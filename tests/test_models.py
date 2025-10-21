@@ -36,7 +36,7 @@ def test_new_product_property(new_product):
     assert new_product["quantity"] == 5
 
 
-def test_new_product_setter():
+def test_new_price_setter():
     new_price = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
     assert new_price.price == 123000.0
 
@@ -61,3 +61,12 @@ def test_product_add(product1, product2):
 
 def test_category_str(category1):
     assert str(category1) == "Смартфоны, количество продуктов: 13 шт."
+
+
+def test_new_product(new_product):
+    assert new_product == {
+        "name": "Samsung Galaxy S23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": 5,
+    }

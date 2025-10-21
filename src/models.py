@@ -12,6 +12,13 @@ class Product:
         self.__price = price  # приватный атрибут
         self.quantity = quantity
 
+    def __str__(self):  # строковое представление продукта
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        cost_products = self.__price * self.quantity + other.__price * other.quantity
+        return cost_products
+
     @classmethod
     def new_product(
         cls, product
@@ -60,6 +67,13 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products)
 
+    def __str__(
+        self,
+    ):  # строковое представление категории (общее количество товаров на складе)
+
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
+
     def add_product(self, product):
         """добавляем продукт в список приватных продуктов"""
         self.__products.append(product)
@@ -72,5 +86,5 @@ class Category:
     ) -> str:  # геттер для вывода приватного списка продуктов по заданному формату
         products_str = ""
         for product in self.__products:
-            products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            products_str += f"{str(product)}\n"
         return products_str

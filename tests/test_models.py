@@ -14,12 +14,15 @@ def test_init_category(category1: Category, product1: Product) -> None:
         category1.description
         == "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни"
     )
-    expected_string = "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+    expected_string = (
+        "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+        "Iphone 15, 210000.0 руб. Остаток: 8 шт.\n"
+    )
     assert category1.products == expected_string
 
 
 def test_product_count() -> None:
-    assert Category.product_count == 1
+    assert Category.product_count == 2
 
 
 def test_category_count() -> None:
@@ -33,13 +36,37 @@ def test_new_product_property(new_product):
     assert new_product["quantity"] == 5
 
 
-def test_new_product_setter():
+def test_new_price_setter():
     new_price = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
     assert new_price.price == 123000.0
 
 
 def test_products_property(product1, category1):
     result = category1.products
-    expected = "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+    expected = (
+        "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+        "Iphone 15, 210000.0 руб. Остаток: 8 шт.\n"
+    )
 
     assert result == expected
+
+
+def test_product_str(product1):
+    assert str(product1) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+
+
+def test_product_add(product1, product2):
+    assert product1 + product2 == 2580000.0
+
+
+def test_category_str(category1):
+    assert str(category1) == "Смартфоны, количество продуктов: 13 шт."
+
+
+def test_new_product(new_product):
+    assert new_product == {
+        "name": "Samsung Galaxy S23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": 5,
+    }

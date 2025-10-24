@@ -15,9 +15,13 @@ class Product:
     def __str__(self):  # строковое представление продукта
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
-    def __add__(self, other):
-        cost_products = self.__price * self.quantity + other.__price * other.quantity
-        return cost_products
+    def __add__(self, other):  # метод сложения стоимости продуктов
+        if type(other) is Product:
+            cost_products = (
+                self.__price * self.quantity + other.__price * other.quantity
+            )
+            return cost_products
+        raise TypeError
 
     @classmethod
     def new_product(

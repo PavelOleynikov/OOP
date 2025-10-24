@@ -41,6 +41,10 @@ poetry install
     """класс данных о продукте"""
     2. class Category:
     """класс данных о категориях продуктов"""
+    3. class LawnGrass:
+    """класс-наследник класса Product"""
+    4. class Smartphone:
+    """класс-наследник класса Product"""
     
     Реализованы:
 

@@ -1,6 +1,6 @@
+from src.grass import LawnGrass
 from src.models import Product
 from src.smartfone import Smartphone
-from src.grass import LawnGrass
 
 
 def test_print_mixin(capsys):

@@ -23,12 +23,14 @@ def test_init_category(category1: Category, product1: Product) -> None:
     assert category1.products == expected_string
 
 
-def test_product_count() -> None:
-    assert Category.product_count == 2
-
-
-def test_category_count() -> None:
+def test_category_count(category1) -> None:
+    """тест на проверку количества добавленных категорий"""
     assert Category.category_count == 1
+
+
+def test_product_count(category1) -> None:
+    """тест на проверку количества продуктов в добавленной категории"""
+    assert Category.product_count == 2
 
 
 def test_new_product_property(new_product) -> None:

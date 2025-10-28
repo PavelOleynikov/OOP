@@ -14,7 +14,10 @@ class Product(BaseProduct, PrintMixin):
         self.name = name
         self.description = description
         self.__price = price  # приватный атрибут
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__()
 
     def __str__(self):  # строковое представление продукта
@@ -100,3 +103,13 @@ class Category:
         for product in self.__products:
             products_str += f"{str(product)}\n"
         return products_str
+
+    def middle_price(self):
+        """расчёт средней цены продуктов"""
+
+        try:
+            return sum(product.price for product in self.__products) / len(
+                self.__products
+            )
+        except ZeroDivisionError:
+            return 0

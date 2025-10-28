@@ -79,3 +79,18 @@ def test_new_product(new_product) -> None:
 def test_add_product_error(category1: Category) -> None:
     with pytest.raises(TypeError):
         category1.add_product("Invalid product")
+
+
+def test_middle_price(category1, category_empty) -> None:
+    """Тест корректности вычисления средней цены, в т.ч. категории без продуктов"""
+
+    assert category1.middle_price() == 195000
+    assert category_empty.middle_price() == 0
+
+
+def test_zero_quantity_value_error() -> None:
+    """Тест, что нулевое количество товаров вызывает ValueError"""
+
+    with pytest.raises(ValueError) as e:
+        Product("Бракованный товар", "Неверное количество", 1000.0, 0)
+    assert str(e.value) == "Товар с нулевым количеством не может быть добавлен"

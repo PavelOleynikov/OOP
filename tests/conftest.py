@@ -18,7 +18,9 @@ def product2() -> Product:
 
 
 @pytest.fixture
-def category1(product1, product2: Product) -> Category:
+def category1(product1: Product, product2: Product) -> Category:
+    Category.category_count = 0
+    Category.product_count = 0
     return Category(
         "Смартфоны",
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
@@ -81,3 +83,8 @@ def grass2():
         "5 дней",
         "Темно-зеленый",
     )
+
+
+@pytest.fixture
+def category_empty():
+    return Category("Пустая категория", "Категория без продуктов", [])
